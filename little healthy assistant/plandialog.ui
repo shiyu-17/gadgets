@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>planDialog</class>
+ <widget class="QDialog" name="planDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>525</width>
+    <height>278</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>制定计划</string>
+  </property>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>80</y>
+     <width>221</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="1" column="0">
+     <widget class="QLabel" name="pLabel">
+      <property name="text">
+       <string>项目(&amp;P)</string>
+      </property>
+      <property name="buddy">
+       <cstring>pComboBox</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="pComboBox">
+      <item>
+       <property name="text">
+        <string>视频弹出</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>跑步</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>健走</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>跳绳</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>力量训练</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>有氧操</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>眼保健操</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="tLabel">
+      <property name="text">
+       <string>时间(&amp;T)</string>
+      </property>
+      <property name="buddy">
+       <cstring>tDateTimeEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QDateTimeEdit" name="tDateTimeEdit">
+      <property name="date">
+       <date>
+        <year>2000</year>
+        <month>8</month>
+        <day>24</day>
+       </date>
+      </property>
+      <property name="displayFormat">
+       <string>MM-dd H:mm</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>确定</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="label">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="text">
+       <string>      设置运动提醒</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>80</y>
+     <width>186</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_2">
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="label_2">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="text">
+       <string>     设置目标</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="wLabel">
+      <property name="text">
+       <string>目标体重(&amp;W)</string>
+      </property>
+      <property name="buddy">
+       <cstring>pwLineEdit</cstring>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="pwLineEdit"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="myLabel">
+      <property name="text">
+       <string>自定义目标</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="mbLineEdit"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>确定</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>20</y>
+     <width>161</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="text">
+    <string>凡事预则立，不预则废</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::RichText</enum>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
