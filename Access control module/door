@@ -1,0 +1,73 @@
+from m5stack import *
+from m5ui import *
+from uiflow import *
+import machine
+import time
+remoteInit()
+import nvs
+
+
+rgb.set_screen([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+
+
+press = None
+flag = None
+state = None
+car_ID = None
+
+
+
+
+
+
+def buttonA_wasPressed():
+  global press, flag, state, car_ID, PWM0
+  if press == 1:
+    press = 0
+    rgb.setColorAll(0x33cc00)
+    PWM0.duty(50)
+  else:
+    press = 0
+    rgb.setColorAll(0xff0000)
+    PWM0.duty(0)
+  pass
+btnA.wasPressed(buttonA_wasPressed)
+
+
+press = 1
+PWM0 = machine.PWM(26, freq=10000, duty=0, timer=0)
+rgb.setColorAll(0xffcc33)
+while True:
+  flag = float((getP2PData()))
+  wait(0.05)
+  rgb.setColorAll(0xffcc33)
+  while flag > 0:
+    if flag == 1:
+      sendP2PData('DC4CB31E', '1')
+      print('get request')
+      print(flag)
+      print('------------------------------')
+    if flag > 1000:
+      sendP2PData('DC4CB31E', '2')
+      print('receive carID')
+      print(flag)
+      print('------------------------------')
+      car_ID = flag
+    if flag < 20 and flag > 0:
+      print('receive car`s state')
+      print(flag)
+      state = flag
+      nvs.write(str(car_ID), state)
+      print('EEPROM writre successfully')
+      print('------------------------------')
+      if flag > 5:
+        sendP2PData('DC4CB31E', '0')
+        print('PASS : PWM->50')
+        PWM0.duty(50)
+        rgb.set_screen([0,0,0xffffff,0,0,0,0xffffff,0,0xffffff,0,0xffffff,0,0xffffff,0,0xffffff,0,0,0xffffff,0,0,0,0,0xffffff,0,0])
+        wait(20)
+        PWM0.duty(0)
+      else:
+        PWM0.duty(0)
+        rgb.set_screen([0xffffff,0,0,0,0xffffff,0,0xffffff,0,0xffffff,0,0,0,0xffffff,0,0,0,0xffffff,0,0xffffff,0,0xffffff,0,0,0,0xffffff])
+  wait_ms(2)
