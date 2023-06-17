@@ -1,0 +1,128 @@
+from m5stack import *
+from m5ui import *
+from uiflow import *
+remoteInit()
+import imu
+import machine
+
+
+rgb.set_screen([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+
+
+a = None
+x = None
+f = None
+zxya = None
+car_ID = None
+pwd = None
+y = None
+pass2 = None
+zxy = None
+flag = None
+x1 = None
+y1 = None
+
+imu0 = imu.IMU()
+
+
+
+# 描述这个函数...
+def zxya1():
+  global a, x, f, zxya, car_ID, pwd, y, pass2, zxy, flag, x1, y1, PWM0
+  a = imu0.ypr[1]
+  if a >= -45 and a <= 45:
+    x = 1
+  if a >= 45 and a <= 135:
+    x = 2
+  if a >= 135 and a <= 180 or a <= -135:
+    x = 3
+  if a >= -135 and a <= -45:
+    x = 4
+  return x
+
+# 描述这个函数...
+def zxya2():
+  global a, x, f, zxya, car_ID, pwd, y, pass2, zxy, flag, x1, y1, PWM0
+  f = imu0.ypr[2]
+  if f >= -45 and f <= 45:
+    y = 1
+  if f >= 45 and f <= 135:
+    y = 2
+  if f >= 135 and f <= 225 or a <= -135:
+    y = 3
+  if f >= -135 and f <= -45:
+    y = 4
+  return x
+
+# 描述这个函数...
+def zxya3():
+  global a, x, f, zxya, car_ID, pwd, y, pass2, zxy, flag, x1, y1, PWM0
+  if x == 1 and y == 1:
+    zxya = 1
+  if x == 1 and y == 2:
+    zxya = 2
+  if x == 1 and y == 3:
+    zxya = 3
+  if x == 1 and y == 4:
+    zxya = 4
+  if x == 2 and y == 1:
+    zxya = 5
+  if x == 2 and y == 2:
+    zxya = 6
+  if x == 2 and y == 3:
+    zxya = 7
+  if x == 2 and y == 4:
+    zxya = 8
+  if x == 3 and y == 1:
+    zxya = 9
+  if x == 3 and y == 2:
+    zxya = 10
+  if x == 3 and y == 3:
+    zxya = 11
+  if x == 3 and y == 4:
+    zxya = 12
+  if x == 4 and y == 1:
+    zxya = 13
+  if x == 4 and y == 2:
+    zxya = 14
+  if x == 4 and y == 3:
+    zxya = 15
+  if x == 4 and y == 4:
+    zxya = 16
+  return zxya
+
+
+def buttonA_wasPressed():
+  global a, x, f, zxya, car_ID, pwd, y, pass2, zxy, flag, x1, y1, PWM0
+  sendP2PData('C24F85BD', '1')
+  rgb.setColorAll(0xff0000)
+  print('发送1')
+  pass
+btnA.wasPressed(buttonA_wasPressed)
+
+
+rgb.setColorAll(0xcccccc)
+car_ID = 123456
+pwd = 110
+pass2 = 0
+x = 1
+y = 3
+zxy = 2
+PWM0 = machine.PWM(26, freq=10000, duty=0, timer=0)
+while True:
+  flag = str((getP2PData()))
+  if flag == str(1):
+    sendP2PData('C24F85BD', car_ID)
+    rgb.setColorAll(0x33ff33)
+    print('发送id')
+  if flag == str(2):
+    rgb.setColorAll(0x3333ff)
+    x1 = zxya1()
+    y1 = zxya2()
+    zxy = zxya3()
+    sendP2PData('C24F85BD', zxy)
+  if flag == str(0):
+    rgb.setColorAll(0x663366)
+    PWM0.duty(100)
+    sendP2PData('C24F85BD', pass2)
+  wait_ms(2)
